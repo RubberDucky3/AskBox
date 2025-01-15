@@ -14,3 +14,33 @@ firebase.initializeApp(firebaseConfig);
 
 // Reference to the database service
 const database = firebase.database();
+
+// Function to add a request
+function addRequest(request) {
+    const newRequestKey = database.ref().child('requests').push().key;
+    const updates = {};
+    updates['/requests/' + newRequestKey] = request;
+    return database.ref().update(updates);
+}
+
+// Listen for new requests
+database.ref('requests').on('child_added', (data) => {
+    const request = data.val();
+    displayRequest(request);
+});
+
+// Function to display a request
+function displayRequest(request) {
+    const requestList = document.getElementById('request-list');
+    const requestItem = document.createElement('li');
+    requestItem.textContent = request;
+    requestList.appendChild(requestItem);
+}
+
+document.getElementById('request-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const requestInput = document.getElementById('request-input');
+    const request = requestInput.value;
+    addRequest(request);
+    requestInput.value = '';
+});

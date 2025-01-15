@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="script.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulletin Board</title>
+    <title>AskBox</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
     <header>
-        <h1>Bulletin Board</h1>
+        <h1>AskBox</h1>
     </header>
     <main>
-        <section id="post-request">
-            <h2>Post a Request</h2>
+        <section>
             <form id="request-form">
-                <label for="request-title">Title:</label>
-                <input type="text" id="request-title" name="request-title" required>
-                
-                <label for="request-content">Content:</label>
-                <textarea id="request-content" name="request-content" rows="5" required></textarea>
-                
-                <button type="submit">Post Request</button>
+                <input type="text" id="request-input" placeholder="Enter your request">
+                <button type="submit">Add Request</button>
             </form>
-        </section>
-        <section id="requests">
-            <h2>Requests</h2>
-            <div id="request-list">
-                <!-- Requests will be dynamically added here -->
-            </div>
+            <ul id="request-list"></ul>
         </section>
     </main>
     <footer>
         <p>&copy; 2025 Bulletin Board</p>
     </footer>
+    <script src="app.js"></script>
 </body>
 </html>
