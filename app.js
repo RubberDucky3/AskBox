@@ -1,8 +1,12 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase, ref, push, onChildAdded, update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDINwYTmFHXAT7MEJXkld82DswmYhxoqVc",
     authDomain: "askbox-453b5.firebaseapp.com",
-    databaseURL: "https://askbox-453b5-default-rtdb.firebaseio.com", // Add this line
+    databaseURL: "https://askbox-453b5-default-rtdb.firebaseio.com",
     projectId: "askbox-453b5",
     storageBucket: "askbox-453b5.appspot.com",
     messagingSenderId: "740756920728",
@@ -11,24 +15,22 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Reference to the database service
-const database = firebase.database();
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
 // Function to add a request
 function addRequest(request) {
     console.log("Adding request:", request);
-    const newRequestKey = database.ref().child('requests').push().key;
+    const newRequestKey = push(ref(database, 'requests')).key;
     const updates = {};
     updates['/requests/' + newRequestKey] = request;
-    return database.ref().update(updates)
+    return update(ref(database), updates)
         .then(() => console.log("Request added successfully"))
         .catch((error) => console.error("Error adding request:", error));
 }
 
 // Listen for new requests
-database.ref('requests').on('child_added', (data) => {
+onChildAdded(ref(database, 'requests'), (data) => {
     const request = data.val();
     displayRequest(request);
 });
