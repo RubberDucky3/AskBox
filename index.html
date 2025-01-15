@@ -26,5 +26,13 @@
         <p>&copy; 2025 Bulletin Board</p>
     </footer>
     <script src="app.js"></script>
+    <script>
+        function displayRequest(request) {
+            const requestList = document.getElementById('request-list');
+            const requestItem = document.createElement('li');
+            requestItem.textContent = request;
+            requestList.appendChild(requestItem);
+        }
+    </script>
 </body>
 </html>
