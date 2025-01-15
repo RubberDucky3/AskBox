@@ -37,6 +37,7 @@ function displayRequest(request) {
     requestList.appendChild(requestItem);
 }
 
+// Handle form submission
 document.getElementById('request-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const requestInput = document.getElementById('request-input');
