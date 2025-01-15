@@ -2,12 +2,13 @@
 const firebaseConfig = {
     apiKey: "AIzaSyDINwYTmFHXAT7MEJXkld82DswmYhxoqVc",
     authDomain: "askbox-453b5.firebaseapp.com",
+    databaseURL: "https://askbox-453b5-default-rtdb.firebaseio.com", // Add this line
     projectId: "askbox-453b5",
-    storageBucket: "askbox-453b5.firebasestorage.app",
+    storageBucket: "askbox-453b5.appspot.com",
     messagingSenderId: "740756920728",
     appId: "1:740756920728:web:4c5086af185fbb55e4b3ed",
     measurementId: "G-ZCSRC21LJ4"
-  };
+};
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -17,10 +18,13 @@ const database = firebase.database();
 
 // Function to add a request
 function addRequest(request) {
+    console.log("Adding request:", request);
     const newRequestKey = database.ref().child('requests').push().key;
     const updates = {};
     updates['/requests/' + newRequestKey] = request;
-    return database.ref().update(updates);
+    return database.ref().update(updates)
+        .then(() => console.log("Request added successfully"))
+        .catch((error) => console.error("Error adding request:", error));
 }
 
 // Listen for new requests

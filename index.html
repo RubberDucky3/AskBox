@@ -25,16 +25,5 @@
         <p>&copy; 2025 Bulletin Board</p>
     </footer>
     <script src="app.js"></script>
-    <script>
-        function addRequest(request) {
-            console.log("Adding request:", request);
-            const newRequestKey = database.ref().child('requests').push().key;
-            const updates = {};
-            updates['/requests/' + newRequestKey] = request;
-            return database.ref().update(updates)
-                .then(() => console.log("Request added successfully"))
-                .catch((error) => console.error("Error adding request:", error));
-        }
-    </script>
 </body>
 </html>
